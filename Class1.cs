@@ -31,6 +31,25 @@ namespace oni_ForestTree
                 }, SingleEntityReceptacle.ReceptacleDirection.Top, default(Tag), 4, STRINGS.CREATURES.SPECIES.WOOD_TREE.DOMESTICATEDDESC, EntityTemplates.CollisionShape.CIRCLE, 0.3f, 0.3f, null, "", false), "ForestTree_preview", Assets.GetAnim("tree_kanim"), "place", 3, 3);
             //SeedProducer.ProductionType.Harvest//收获掉落
 
+
+           // var mutations=gameObject.GetComponent<MutantPlant>();//获取变异属性
+            //生成的树枝需要从上级继承才行.
+          //  gameObject.GetComponentInParent<MutantPlant>();//获取上级的变异属性.
+
+            KPrefabID component2 = gameObject.GetComponent<KPrefabID>();
+            MutantPlant seed= gameObject.GetComponent<MutantPlant>();
+            if (seed != null)
+            {
+                Debug.LogWarning("树枝生成时：CreatePrefab上级变异信息为：" + seed.MutationIDs);
+            }
+          
+
+            if (component2 != null)
+            {
+                gameObject.AddOrGet<MutantPlant>().SpeciesID = component2.PrefabTag;//上级如果是种子的形态.
+                Debug.LogWarning("树枝生成时：PrefabTag：" + seed.MutationIDs);
+                // gameObject.AddOrGet<MutantPlant>().SpeciesID = component2.SpeciesID;上级如果是有ID,是树枝的静态.
+            }
             return gameObject;
         }
 
